@@ -1,17 +1,19 @@
 name: Docker Image CI Native
-
 on:
   push:
     branches: [ "main" ]
   workflow_dispatch:
-
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file Dockerfile.native --tag quickstart-mp:$(date +%s)
+      run: docker build . --file Dockerfile.native --tag quickstart-mp:1.0-SNAPSHOT
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v3.0.0
+      with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - name: Push the Docker image
+      run: docker push quickstart-mp:1.0-SNAPSHOT
