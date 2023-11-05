@@ -1,4 +1,4 @@
-name: Docker Image CI Native
+name: Container Image CI Native
 on:
   push:
     branches: [ "main" ]
@@ -19,7 +19,6 @@ jobs:
         uses: docker/metadata-action@v5.0.0
         with:
           images: upaio/helidon-chassis-microservice
-      
       - name: Build and push Docker image
         uses: docker/build-push-action@v5.0.0
         with:
