@@ -2,6 +2,13 @@ name: Container Image CI Native
 on:
   push:
     branches: [ "main" ]
+    paths:
+      - 'pom.xml'
+      - 'src/main/java/**/*.java'
+      - 'src/main/test/**/*.java'
+      - 'src/main/resources/**/*.properties'
+      - 'src/main/resources/**/*.yaml'
+      - 'src/main/resources/**/*.xml'
   workflow_dispatch:
 jobs:
   build:
