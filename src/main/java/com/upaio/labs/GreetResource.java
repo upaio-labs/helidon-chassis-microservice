@@ -72,9 +72,9 @@ public class GreetResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Message getDefaultMessage() {
-        // Simular un retraso de 15 segundos
+        // Simular un retraso de 4 segundos, en caso que se quiera probar el timeout, aumentar el valor mayor a 5 segundos
         try {
-            TimeUnit.SECONDS.sleep(15);
+            TimeUnit.SECONDS.sleep(4);
         } catch (InterruptedException e) {
             // Manejar interrupciones si es necesario
             e.printStackTrace();
@@ -102,19 +102,18 @@ public class GreetResource {
      * @param message Message containing the new greeting
      * @return {@link Response}
      */
-    @Path("/greeting")
-    @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    @RequestBody(name = "greeting",
+        @Path("/greeting")
+        @PUT
+        @Consumes(MediaType.APPLICATION_JSON)
+        @Produces(MediaType.APPLICATION_JSON)
+        @RequestBody(name = "greeting",
             required = true,
             content = @Content(mediaType = "application/json",
-                    schema = @Schema(type = SchemaType.OBJECT, requiredProperties = { "greeting" })))
-    @APIResponses({
-            @APIResponse(name = "normal", responseCode = "204", description = "Greeting updated"),
-            @APIResponse(name = "missing 'greeting'", responseCode = "400",
-                    description = "JSON did not contain setting for 'greeting'")})
-    public Response updateGreeting(Message message) {
+                schema = @Schema(type = SchemaType.OBJECT, requiredProperties = { "greeting" })))
+        @APIResponse(name = "normal", responseCode = "204", description = "Greeting updated")
+        @APIResponse(name = "missing 'greeting'", responseCode = "400",
+            description = "JSON did not contain setting for 'greeting'")
+        public Response updateGreeting(Message message) {
 
         if (message.getGreeting() == null || message.getGreeting().isEmpty()) {
             Message error = new Message();
@@ -139,7 +138,7 @@ public class GreetResource {
     @APIResponse(name = "Server error", responseCode = "500", description = "Server error") 
     public Response getMessageForClientRest() {
         LOGGER.log(Level.INFO, "Ejecutando el método getMessageForClientRest");
-        
+
         // Crear una configuración del cliente
         ClientConfig clientConfig = new ClientConfig();
 
