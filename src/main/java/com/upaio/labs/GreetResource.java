@@ -9,6 +9,8 @@ import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
@@ -111,5 +113,18 @@ public class GreetResource {
         String msg = String.format("%s %s!", greetingProvider.getMessage(), who);
 
         return new Message(msg);
+    }
+
+    @Path("/client")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponse(name = "OK", responseCode = "200", description = "OK")
+    public Response getMessageForClientRest() {
+        try (Client client = ClientBuilder.newClient()) {
+            return client
+                    .target("http://localhost:8080/greet")
+                    .request("application/json")
+                    .get();
+        }
     }
 }
