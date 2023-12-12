@@ -138,7 +138,8 @@ public class GreetResource {
     @APIResponse(name = "OK", responseCode = "200", description = "OK")
     @APIResponse(name = "Server error", responseCode = "500", description = "Server error") 
     public Response getMessageForClientRest() {
-
+        LOGGER.log(Level.INFO, "Ejecutando el método getMessageForClientRest");
+        
         // Crear una configuración del cliente
         ClientConfig clientConfig = new ClientConfig();
 
