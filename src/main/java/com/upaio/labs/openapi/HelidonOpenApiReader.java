@@ -18,7 +18,7 @@ public class HelidonOpenApiReader implements OASModelReader {
                 .createInfo()
                 .title("Helidon quickstart-mp")
                 .description("Helidon quickstart-mp API")
-                .version("1.1-SNAPSHOT")
+                .version("1.2-SNAPSHOT")
                 .contact(contact());
     }
 
